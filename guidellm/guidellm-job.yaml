@@ -1,0 +1,20 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: guidellm-benchmark
+  namespace: demo-llm
+spec:
+  template:
+    spec:
+      containers:
+      - name: guidellm
+        image: ghcr.io/vllm-project/guidellm:0.4.0
+        env:
+          - name: GUIDELLM_TARGET
+            value: http://localhost:8000
+          - name: GUIDELLM_PROFILE
+            value: sweep
+          - name: GUIDELLM_MAX_SECONDS
+            value: "30"
+          - name: GUIDELLM_DATA
+            value: "prompt_tokens=256,output_tokens=128"
