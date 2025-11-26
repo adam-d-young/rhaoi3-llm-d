@@ -7,7 +7,6 @@ This folder contains Kustomize files to deploy llm-d with the Qwen3-0.6B model o
 - OpenShift cluster with GPU nodes
 - OpenShift AI (RHOAI) operator installed
 - `oc` CLI tool installed and configured
-- `kubectl` with kustomize support (or standalone `kustomize`)
 
 ## Deployment
 
