@@ -10,7 +10,7 @@ metadata:
     openshift.io/display-name: qwen
     security.opendatahub.io/enable-auth: 'false'
 spec:
-  replicas: 2
+  replicas: 4
   model:
     uri: hf://Qwen/Qwen3-0.6B
     name: Qwen/Qwen3-0.6B
@@ -52,7 +52,7 @@ spec:
                 - type: single-profile-handler
                 - type: queue-scorer
                 - type: kv-cache-utilization-scorer
-                - type: precise-prefix-cache-scorer
+                - type: prefix-cache-scorer
                 schedulingProfiles:
                 - name: default
                   plugins:
@@ -60,7 +60,7 @@ spec:
                     weight: 2
                   - pluginRef: kv-cache-utilization-scorer
                     weight: 2
-                  - pluginRef: precise-prefix-cache-scorer
+                  - pluginRef: prefix-cache-scorer
                     weight: 3
             volumeMounts:
               - name: tokenizer-cache
@@ -83,7 +83,7 @@ spec:
       - name: main
         env:
           - name: VLLM_ADDITIONAL_ARGS
-            value: "--disable-uvicorn-access-log"
+            value: "--disable-uvicorn-access-log --max-model-len=16000"
         resources:
           limits:
             cpu: '1'
